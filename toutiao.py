@@ -4,6 +4,11 @@ import os
 import time
 from multiprocessing import Pool
 from hashlib import md5
+from pymongo import MongoClient
+
+
+client = MongoClient('localhost', 27017)
+db = client.test
 
 def get_html(offset):
     url = "http://www.toutiao.com/search_content/"
@@ -36,6 +41,13 @@ def save_img(imgUrl):
             f.write(trueImg)
             f.close()
 
+def save_data(imgUrl):
+    if db["toutiao"].insert(imgUrl):
+        print("Successfully save to mongo",imgUrl)
+        return True
+    return False
+
+
 
 
 if __name__ == '__main__':
@@ -45,7 +57,11 @@ if __name__ == '__main__':
     for text in texts:
         item = get_img_url(text)
         for x in item:
-            save_img(x)
+            urlName = {
+                        "url_name":str(x)+".jpg"
+                      }
+            save_data(urlName)
+    #        save_img(x)
     end = time.time()
     print(str(end-start)+"毫秒")
 
