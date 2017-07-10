@@ -1,4 +1,4 @@
-#encoding='utf-8'
+#coding='utf-8'
 from wordcloud import WordCloud,ImageColorGenerator
 import matplotlib.pyplot as plt
 import os
