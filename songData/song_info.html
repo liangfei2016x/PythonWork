@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	</style>
+	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.min.js"></script>
+	<script type="text/javascript" src="js/song_info.js"></script>
+	<script type="text/javascript" src="js/singerSort.js"></script>
+	<script type="text/javascript" src="js/songSort.js"></script>
+</head>
+<body>
+	<body>
+	歌手:<select id="all">
+		  <option value="volvo">Volvo</option>
+		  <option value="saab">Saab</option>
+		  <option value="opel">Opel</option>
+		  <option value="audi">Audi</option>
+		</select>
+	歌曲:<select id="all2">
+		  <option value="volvo">Volvo</option>
+		  <option value="saab">Saab</option>
+		  <option value="opel">Opel</option>
+		  <option value="audi">Audi</option>
+		</select>	
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 1000px;height:1000px;text-align:center"></div>
+	<script type="text/javascript">
+	$("#all").html()
+	selectList=""
+	for (var i = 0; i < singerSort.length; i++) {
+		var	x=singerSort[i]["singer"].replace(" ","")
+		selectList+='<option value='+x+'>'+singerSort[i]['singer']+"</option>"
+	}
+	$("#all").html(selectList)
+	$("#all2").html()
+	selectList2=""
+	for (var i = 0; i < songSort.length; i++) {
+		var	x=songSort[i]["songerName"].replace(/\s/g,"")
+		selectList2+='<option value='+x+'>'+songSort[i]["songerName"]+"</option>"
+	}
+	$("#all2").html(selectList2)
+	$("#all").bind("change",function(){
+		var options=$(this).find("option:selected");
+		name=options.attr("value")
+		getName(name)
+	})
+	$("#all2").bind("change",function(){
+		var options=$(this).find("option:selected");
+		name=options.attr("value")
+		getName2(name)
+		console.log(name)
+	})
+	function getName2(name2){
+		var valueData2 = [],nameData2 = []
+	 	for (var i = 0; i < song_info.length; i++) {
+	 		var y = song_info[i]["songName"].replace(/\s/g,"")
+			if(y == name2){
+				valueData2.push(song_info[i]["total"])
+				nameData2.push(song_info[i]["singer"])
+			}
+		}
+		showCharts(nameData2,valueData2);
+	}
+	function getName(name){
+		var valueData = [],nameData = []
+	 	for (var i = 0; i < song_info.length; i++) {
+	 		var y = song_info[i]["singer"].replace(" ","")
+			if(y == name){
+				valueData.push(song_info[i]["total"])
+				nameData.push(song_info[i]["songName"])
+			}
+		}
+		showCharts(nameData,valueData);
+	}
+	function showCharts(nameData,valueData){
+		var myChart = echarts.init(document.getElementById('main'));
+			option = {
+			    title: {
+			        text: '歌曲详情'
+			    },
+			    tooltip : {
+			        trigger: 'axis'
+			    },    
+			    xAxis: {
+			        data: nameData
+			    },
+			    yAxis: {},
+			    series: [{
+			        type: 'line',
+			        data:valueData,
+			        markPoint: {
+			            data: [
+			                {type: 'max', name: '最大值'},
+			                {type: 'min', name: '最小值'}
+			            ]
+			        },
+			        markLine: {
+			            smooth: true,
+			                    effect: {
+			                        show: true
+			                    },
+			                    distance: 10,
+			            label: {
+			                normal: {
+			                    position: 'middle'
+			                }
+			            },
+			            symbol: ['none', 'none'],
+			        }
+			    }]
+			};
+			myChart.setOption(option);
+		}
+	</script>
+
+</body>
+</body>
+</html>

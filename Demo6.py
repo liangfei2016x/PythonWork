@@ -42,18 +42,17 @@ def verif_ip(agree,port):    # 验证ip有效性
 
     test_url = "http://music.163.com/#/discover/playlist/?order=hot&cat=%E5%85%A8%E9%83%A8&limit=35&offset=0"
     req = urllib.request.Request(url=test_url, headers=headers)
-    time.sleep(6)
+    time.sleep(3)
     try:
         res = urllib.request.urlopen(req)
-        time.sleep(3)
+        time.sleep(2)
         content = res.read()
         if content:
             print('that is ok')
-            with open("data2.txt", "a") as fd:       # 有效ip保存到data2文件夹
-                fd.write(port)
+            with open("data3.txt", "a") as fd:       # 有效ip保存到data2文件夹
+                fd.write(port+u"\n")
         else:
             print('its not ok')
-
     except urllib.request.HTTPError as e:
         print(e.reason)
     except urllib.request.URLError as e:
