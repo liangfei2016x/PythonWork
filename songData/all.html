@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.min.js"></script>
+	<script type="text/javascript" src="js/comment_sum.js"></script>
+</head>
+<body>
+	<body>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 800px;height:500px;"></div>
+	<script type="text/javascript">
+	 var myChart = echarts.init(document.getElementById('main'));
+		option = {
+		    title : {
+		        text: '网易云音乐歌手总数和音乐总数',
+		        subtext: '纯属娱乐'
+		    },
+		    tooltip : {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		        data:['数量']
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: true},
+		            dataView : {show: true, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },
+		    calculable : true,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            data : ["歌手总数","歌曲总数"]
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value'
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'蒸发量',
+		            type:'bar',
+		            data:[20261,65435],
+		           itemStyle: {
+		                normal: {
+		                    color: function(params) {
+		                        // build a color map as your need.
+		                        var colorList = [
+		                          '#C1232B','#27727B',
+		                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+		                        ];
+		                        return colorList[params.dataIndex]
+		                    },label: {
+		                        show: true,
+		                        position: 'top',
+		                        formatter: '{b}\n{c}'
+		                    }
+		                }
+		            }
+		        }
+		    ]
+		};  
+		myChart.setOption(option);
+	</script>
+
+</body>
+</body>
+</html>

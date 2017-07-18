@@ -26,7 +26,7 @@
 		  <option value="audi">Audi</option>
 		</select>	
     <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-    <div id="main" style="width: 1000px;height:1000px;text-align:center"></div>
+    <div id="main" style="width: 980px;height:500px;text-align:center"></div>
 	<script type="text/javascript">
 	$("#all").html()
 	selectList=""
@@ -51,7 +51,6 @@
 		var options=$(this).find("option:selected");
 		name=options.attr("value")
 		getName2(name)
-		console.log(name)
 	})
 	function getName2(name2){
 		var valueData2 = [],nameData2 = []

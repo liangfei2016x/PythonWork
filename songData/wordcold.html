@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+        <script src='https://cdn.bootcss.com/echarts/3.2.2/echarts.simple.js'></script>
+        <script src='js/echarts-wordcloud.min.js'></script>
+        <script src='js/song_info.js'></script>
+    </head>
+    <body>
+        <style>
+            html, body, #main {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+        </style>
+        <div id='main'></div>
+        <script>
+        var dataOne = []
+        for (var i = 0; i < song_info.length; i++) {
+            if(song_info[i]["singer"]=="周杰伦"){
+                var name = song_info[i]["songName"];
+                var value = song_info[i]["total"];
+                dataOne.push({"name":name,"value":value})
+                console.log(value)
+            }
+        } 
+            var chart = echarts.init(document.getElementById('main'));
+            var option = {
+                tooltip: {},
+                series: [ {
+                    type: 'wordCloud',
+                    gridSize: 2,
+                    sizeRange: [12, 50],
+                    rotationRange: [-90, 90],
+                    shape: 'pentagon',
+                    width: 600,
+                    height: 400,
+                    drawOutOfBound: true,
+                    textStyle: {
+                        normal: {
+                            color: function () {
+                                return 'rgb(' + [
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160)
+                                ].join(',') + ')';
+                            }
+                        },
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    data: dataOne
+                } ]
+            };
+            chart.setOption(option);
+            window.onresize = chart.resize;
+            chart.on('click', function (params) {
+                for (var i = 0; i < song_info.length; i++) {
+                    if(song_info[i]["songName"]==params.name){
+                        window.open('http://music.163.com/song?id=' + encodeURIComponent(song_info[i]["songId"]));
+                    }
+                }
+            });            
+        </script>
+    </body>
+</html>

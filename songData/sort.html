@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="js/singerSort.js"></script>
 </head>
 <body>
+	<style type="text/css"></style>
 	<body>
     <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
     <h3>
@@ -19,7 +20,7 @@
 			<li value="singerSort">按歌手排序</li>
 		</ul>
     <h3>
-    <div id="main" style="width: 1000px;height:1000px;text-align:center"></div>
+    <div id="main" style="width:800px;height:1000px;"></div>
 	<script type="text/javascript">
 	$("li").each(function(){
 		$(this).click(function(){
@@ -30,6 +31,7 @@
 				for (var i = 0; i < songSort.length; i++) {
 					data1.push(songSort[i]["songerName"])
 					data2.push(songSort[i]["count"])
+					console.log(songSort[i]["songerName"])
 				}
 				showCharts(data1.reverse(),data2.reverse())
 			}else{
